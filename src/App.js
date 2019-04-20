@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import {Route, Link} from 'react-router-dom';
 
-import Adviser from './Adviser';
+import LogIn from './LogIn/LogIn';
 
 class App extends Component {
     render () {
         return (
             <div className="App">
-                <Adviser/>
+                <LogIn/>
             </div>
-        )
+        );
     }
 }
 
