@@ -25,7 +25,7 @@ const styles = theme => ({
     },
 });
 
-class SimpleTabs extends React.Component {
+class AdviserTabs extends React.Component {
     state = {
         value: 0,
     };
@@ -41,22 +41,26 @@ class SimpleTabs extends React.Component {
         return (
             <div className={classes.root}>
                 <AppBar position="static">
-                    <Tabs value={value} onChange={this.handleChange}>
-                        <Tab label="Item One" />
-                        <Tab label="Item Two" />
-                        <Tab label="Item Three" />
+                    <Tabs style={{background: "#5566c3"}} value={value} onChange={this.handleChange}>
+                        <Tab label="Schedule" />
+                        <Tab label="Summary" />
+                        <Tab label="Upcoming" />
+                        <Tab label="Current" />
+                        <Tab label="Advisee's" />
                     </Tabs>
                 </AppBar>
                 {value === 0 && <TabContainer>THFEREE</TabContainer>}
                 {value === 1 && <TabContainer>ONE</TabContainer>}
                 {value === 2 && <TabContainer>TWOW?</TabContainer>}
+                {value === 3 && <TabContainer>FLARMP</TabContainer>}
+                {value === 4 && <TabContainer>Shmeep</TabContainer>}
             </div>
         );
     }
 }
 
-SimpleTabs.propTypes = {
+AdviserTabs.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SimpleTabs);
+export default withStyles(styles)(AdviserTabs);
