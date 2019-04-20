@@ -1,20 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
+import { withStyles } from '@material-ui/core/styles/index';
+import AppBar from '@material-ui/core/AppBar/index';
+import Toolbar from '@material-ui/core/Toolbar/index';
+import Typography from '@material-ui/core/Typography/index';
+import Button from '@material-ui/core/Button/index';
+import IconButton from '@material-ui/core/IconButton/index';
 import MenuIcon from '@material-ui/icons/Menu';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import Drawer from '@material-ui/core/Drawer/index';
+import List from '@material-ui/core/List/index';
+import ListItem from '@material-ui/core/ListItem/index';
+import ListItemIcon from '@material-ui/core/ListItemIcon/index';
+import ListItemText from '@material-ui/core/ListItemText/index';
 import PermIdentityTwoTone from '@material-ui/icons/PermIdentityTwoTone';
 import Settings from '@material-ui/icons/Settings';
-import PanToolTwoTone from'@material-ui/icons/PanToolTwoTone';
+import PanToolTwoTone from '@material-ui/icons/PanToolTwoTone';
 
 const styles = {
     root: {
