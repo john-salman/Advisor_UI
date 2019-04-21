@@ -1,4 +1,5 @@
 import React from 'react';
+import {Route, Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
@@ -12,6 +13,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
+
+
+import Adviser from '../Adviser/Adviser'
 
 const styles = theme => ({
     main: {
@@ -46,7 +50,9 @@ const styles = theme => ({
 });
 
 function SignIn(props) {
-    const { classes } = props;
+    const { classes, submit_form } = props;
+
+    const Adviser = <Adviser/>;
 
     return (
         <main className={classes.main}>
@@ -71,17 +77,20 @@ function SignIn(props) {
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
                     />
-                    <Button
-                        type="submit"
-                        fullWidth
-                        variant="contained"
-                        color="primary"
-                        className={classes.submit}
-                    >
-                        Sign in
-                    </Button>
+                    <div onClick={() => submit_form("test@test.com", "hardpassword", "adviser")}>
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            color="primary"
+                            className={classes.submit}
+                        >
+                            Sign in
+                        </Button>
+                    </div>
                 </form>
             </Paper>
+            <Route exact path="/adviser" component={Adviser}/>
         </main>
     );
 }
