@@ -10,7 +10,7 @@ class Adviser extends Component{
   render() {
     return (
         <div className="Adviser">
-          <AdviserBar/>
+          <AdviserBar logout={this.props.logout}/>
           <AdviserTabs/>
         </div>
     )

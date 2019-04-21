@@ -90,7 +90,7 @@ class AdviserBar extends React.Component {
                         <Typography variant="h6" color="inherit" className={classes.grow}>
                             Dr. Doofenshmirtz
                         </Typography>
-                        <Button color="inherit">Logout</Button>
+                        <Button color="inherit" onClick={() => this.props.logout()}>Logout</Button>
                     </Toolbar>
                 </AppBar>
             </div>
