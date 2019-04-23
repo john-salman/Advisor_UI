@@ -25,7 +25,7 @@ const styles = theme => ({
     },
 });
 
-class AdviserTabs extends React.Component {
+class AdvisorTabs extends React.Component {
     state = {
         value: 0,
     };
@@ -59,8 +59,8 @@ class AdviserTabs extends React.Component {
     }
 }
 
-AdviserTabs.propTypes = {
+AdvisorTabs.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AdviserTabs);
+export default withStyles(styles)(AdvisorTabs);

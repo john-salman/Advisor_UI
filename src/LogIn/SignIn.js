@@ -15,7 +15,8 @@ import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
 
 
-import Adviser from '../Adviser/Adviser'
+import Advisor from '../Advisor/Advisor'
+
 
 const styles = theme => ({
     main: {
@@ -49,50 +50,80 @@ const styles = theme => ({
     },
 });
 
-function SignIn(props) {
-    const { classes, submit_form } = props;
+class SignIn extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            email: "",
+            password: "",
+            role: "advisee",
+        }
+        this.onSubmit = this.onSubmit.bind(this);
+    }
 
-    const Adviser = <Adviser/>;
+    addEmail = event => {
+        console.log("EMAIL: ", event.target.value);
+        this.setState({ email: event.target.value })
+    };
 
-    return (
-        <main className={classes.main}>
-            <CssBaseline />
-            <Paper className={classes.paper}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                    Sign in
-                </Typography>
-                <form className={classes.form}>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="email">Email Address</InputLabel>
-                        <Input id="email" name="email" autoComplete="email" autoFocus />
-                    </FormControl>
-                    <FormControl margin="normal" required fullWidth>
-                        <InputLabel htmlFor="password">Password</InputLabel>
-                        <Input name="password" type="password" id="password" autoComplete="current-password" />
-                    </FormControl>
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
-                    <div onClick={() => submit_form("test@test.com", "hardpassword", "adviser")}>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            color="primary"
-                            className={classes.submit}
-                        >
-                            Sign in
-                        </Button>
-                    </div>
-                </form>
-            </Paper>
-            <Route exact path="/adviser" component={Adviser}/>
-        </main>
-    );
+    addPassword = event => {
+        this.setState({ password: event.target.value })
+    };
+
+    addRole = event => {
+        if (this.state.role === "advisee") {
+            this.setState({role: event.target.value})
+        } else {
+            this.setState({role: "advisee"})
+        }
+    };
+
+    onSubmit() {
+        console.log("we just submitted the form");
+        this.props.submit_form(this.state.email, this.state.password, this.state.role)
+    }
+
+    render() {
+        return (
+            <main className={this.props.classes.main}>
+                <CssBaseline/>
+                <Paper className={this.props.classes.paper}>
+                    <Avatar className={this.props.classes.avatar}>
+                        <LockOutlinedIcon/>
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+                    </Typography>
+                    <form className={this.props.classes.form}>
+                        <FormControl margin="normal" required fullWidth>
+                            <InputLabel htmlFor="email">Email Address</InputLabel>
+                            <Input id="email" name="email" autoComplete="email" onChange={this.addEmail} autoFocus/>
+                        </FormControl>
+                        <FormControl margin="normal" required fullWidth>
+                            <InputLabel htmlFor="password">Password</InputLabel>
+                            <Input name="password" type="password" id="password" autoComplete="current-password" onChange={this.addPassword}/>
+                        </FormControl>
+                        <FormControlLabel
+                            control={<Checkbox value="advisor" color="primary" onChange={this.addRole}/>}
+                            label="Advisor"
+                        />
+                        <div>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                color="primary"
+                                className={this.props.classes.submit}
+                                onClick={() => this.onSubmit()}
+                            >
+                                Sign in
+                            </Button>
+                        </div>
+                    </form>
+                </Paper>
+            </main>
+        )
+    }
 }
 
 SignIn.propTypes = {
@@ -100,3 +131,4 @@ SignIn.propTypes = {
 };
 
 export default withStyles(styles)(SignIn);
+
