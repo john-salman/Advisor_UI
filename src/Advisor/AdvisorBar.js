@@ -35,7 +35,7 @@ const styles = {
     },
 };
 
-class AdviserBar extends React.Component {
+class AdvisorBar extends React.Component {
     state = {
         left: false,
     };
@@ -98,8 +98,8 @@ class AdviserBar extends React.Component {
     }
 }
 
-AdviserBar.propTypes = {
+AdvisorBar.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AdviserBar);
+export default withStyles(styles)(AdvisorBar);

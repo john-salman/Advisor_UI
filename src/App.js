@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 
 import LogIn from './LogIn/LogIn';
-import Adviser from "./Adviser/Adviser";
+import Advisor from "./Advisor/Advisor";
 
 class App extends Component {
     constructor(props) {
         super(props);
-
+        console.log("App constructor called")
         this.state = {
             successful_login: false,
             role: "",
@@ -29,7 +29,8 @@ class App extends Component {
     submit_form(email, password, role) {
         let success = false;
         let new_role = "";
-        if (email === "test@test.com" && password === "hardpassword" && role === "adviser") {
+        console.log("Submit form entered with values: ", email, password, role);
+        if (email === "test@test.com" && password === "hardpassword" && role === "advisor") {
             success = true;
             new_role = role;
         }
@@ -42,13 +43,18 @@ class App extends Component {
     }
 
     render () {
-        if (this.state.successful_login && this.state.role === "adviser") {
+        console.log("App render called with values: ", this.state.successful_login, this.state.role);
+        if (this.state.successful_login && this.state.role === "advisor") {
             return (
                 <div className="App">
-                    <Adviser logout={this.logout}/>
+                    <Advisor logout={this.logout}/>
                 </div>
             );
-        } else {
+        } else
+        /*
+            here we should have an if case for if the sign in was successful and role === "student"
+        */
+        {
             return (
                 <div className="App">
                     <LogIn submit_form={this.submit_form}/>
