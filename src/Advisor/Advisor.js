@@ -7,6 +7,16 @@ import AdvisorTabs from "./AdvisorTabs";
 // Test
 
 class Advisor extends Component{
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selectedDate: new Date()
+        };
+
+        this.dateSelect = this.dateSelect.bind(this);
+    }
+
     componentDidMount() {
         axios.get('advisor/003456791').then(result => {
             console.log(result.data);
@@ -16,12 +26,20 @@ class Advisor extends Component{
         });
     }
 
+    dateSelect(date) {
+        console.log("New Date Selected: ", date);
+        let newDate = date - 1;
+        this.setState({
+            selectedDate: newDate
+        });
+    }
+
 
     render() {
     return (
         <div className="Adviser">
           <AdvisorBar logout={this.props.logout}/>
-          <AdvisorTabs/>
+          <AdvisorTabs dateSelect={this.dateSelect} selectedDate={this.state.selectedDate}/>
         </div>
     )
   }
