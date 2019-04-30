@@ -56,7 +56,7 @@ class AdvisorTabs extends React.Component {
                 {value === 0 && <TabContainer><AdvisorStuDate dateSelect={this.props.dateSelect}/><AdvisorStuSched selectedDate={this.props.selectedDate}/></TabContainer>}
                 {value === 1 && <TabContainer>ONE</TabContainer>}
                 {value === 2 && <TabContainer><AdvisorStuCard/></TabContainer>}
-                {value === 3 && <TabContainer><AdvisorStuTable /></TabContainer>}
+                {value === 3 && <TabContainer><AdvisorStuTable student_data={this.props.student_data}/></TabContainer>}
             </div>
         );
     }

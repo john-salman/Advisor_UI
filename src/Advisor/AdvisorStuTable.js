@@ -47,32 +47,61 @@ const rows = [
 ];
 
 function AdvisorStuTable(props) {
-    const { classes } = props;
+    const { classes, student_data } = props;
 
-    return (
-        <Paper className={classes.root}>
-            <Table className={classes.table}>
-                <TableHead>
-                    <TableRow>
-                        <CustomTableCell>Last Name</CustomTableCell>
-                        <CustomTableCell align="left">First Name</CustomTableCell>
-                        <CustomTableCell align="left">Student ID</CustomTableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {rows.map(row => (
-                        <TableRow className={classes.row} key={row.id}>
-                            <CustomTableCell component="th" scope="row">
-                                {row.lName}
-                            </CustomTableCell>
-                            <CustomTableCell align="left">{row.fName}</CustomTableCell>
-                            <CustomTableCell align="left">{row.stu_id}</CustomTableCell>
+    if (student_data) {
+        return (
+            <Paper className={classes.root}>
+                <Table className={classes.table}>
+                    <TableHead>
+                        <TableRow >
+                            <CustomTableCell><h2>Last Name</h2></CustomTableCell>
+                            <CustomTableCell align="left"><h2>First Name</h2></CustomTableCell>
+                            <CustomTableCell align="left"><h2>Student ID</h2></CustomTableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </Paper>
-    );
+                    </TableHead>
+                    <TableBody>
+                        {student_data.map(student => (
+                            <TableRow className={classes.row} key={student.student_id}>
+                                <CustomTableCell component="th" scope="row">
+                                    {student.student_fName}
+                                </CustomTableCell>
+                                <CustomTableCell align="left">{student.student_lName}</CustomTableCell>
+                                <CustomTableCell align="left">{student.student_id}</CustomTableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Paper>
+            );
+
+    } else {
+        console.log("API call missed, rendering with hardcoded values...");
+        return (
+            <Paper className={classes.root}>
+                <Table className={classes.table}>
+                    <TableHead>
+                        <TableRow>
+                            <CustomTableCell>Last Name</CustomTableCell>
+                            <CustomTableCell align="left">First Name</CustomTableCell>
+                            <CustomTableCell align="left">Student ID</CustomTableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {rows.map(row => (
+                            <TableRow className={classes.row} key={row.id}>
+                                <CustomTableCell component="th" scope="row">
+                                    {row.lName}
+                                </CustomTableCell>
+                                <CustomTableCell align="left">{row.fName}</CustomTableCell>
+                                <CustomTableCell align="left">{row.stu_id}</CustomTableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </Paper>
+        )
+    }
 }
 
 AdvisorStuTable.propTypes = {

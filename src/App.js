@@ -10,7 +10,7 @@ class App extends Component {
         this.state = {
             successful_login: false,
             role: "",
-        }
+        };
         this.submit_form = this.submit_form.bind(this);
         this.logout = this.logout.bind(this);
     }
