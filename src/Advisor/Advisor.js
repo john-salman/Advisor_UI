@@ -39,7 +39,7 @@ class Advisor extends Component{
     return (
         <div className="Adviser">
           <AdvisorBar logout={this.props.logout}/>
-          <AdvisorTabs dateSelect={this.dateSelect} selectedDate={this.state.selectedDate} student_data={this.state.student_data}/>
+          <AdvisorTabs submit_add={this.props.submit_add} dateSelect={this.dateSelect} selectedDate={this.state.selectedDate} student_data={this.state.student_data}/>
         </div>
     )
   }
