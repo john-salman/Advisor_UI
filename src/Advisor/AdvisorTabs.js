@@ -8,8 +8,9 @@ import Typography from '@material-ui/core/Typography/index';
 
 import AdvisorStuDate from './AdvisorStuDate';
 import AdvisorStuSched from './AdvisorStuSched';
-import AdvisorStuCard from './AdvisorStuCard';
 import AdvisorStuTable from './AdvisorStuTable';
+import AdvisorApptAdd from "./AdvisorApptAdd";
+import AdvisorApptTable from './AdvisorApptTable';
 
 function TabContainer(props) {
     return (
@@ -49,14 +50,14 @@ class AdvisorTabs extends React.Component {
                     <Tabs style={{background: "#5566c3"}} value={value} onChange={this.handleChange}>
                         <Tab label="Schedule" />
                         <Tab label="Today" />
-                        <Tab label="Current" />
+                        <Tab label="Appointments" />
                         <Tab label="Advisee's" />
                     </Tabs>
                 </AppBar>
                 {value === 0 && <TabContainer><AdvisorStuDate dateSelect={this.props.dateSelect}/><AdvisorStuSched selectedDate={this.props.selectedDate}/></TabContainer>}
                 {value === 1 && <TabContainer>ONE</TabContainer>}
-                {value === 2 && <TabContainer><AdvisorStuCard/></TabContainer>}
-                {value === 3 && <TabContainer><AdvisorStuTable /></TabContainer>}
+                {value === 2 && <TabContainer><AdvisorApptAdd submit_add={this.props.submit_add}/><AdvisorApptTable/></TabContainer>}
+                {value === 3 && <TabContainer><AdvisorStuTable student_data={this.props.student_data}/></TabContainer>}
             </div>
         );
     }

@@ -46,7 +46,7 @@ const rows = [
     createData('Platypus', 'Perry', 324241234),
 ];
 
-function AdvisorStuTable(props) {
+function AdvisorApptTable(props) {
     const { classes, student_data } = props;
 
     if (student_data) {
@@ -58,6 +58,9 @@ function AdvisorStuTable(props) {
                             <CustomTableCell><h2>Last Name</h2></CustomTableCell>
                             <CustomTableCell align="left"><h2>First Name</h2></CustomTableCell>
                             <CustomTableCell align="left"><h2>Student ID</h2></CustomTableCell>
+                            <CustomTableCell align="left"><p> </p></CustomTableCell>
+                            <CustomTableCell align="left"><p> </p></CustomTableCell>
+                            <CustomTableCell align="left"><p> </p></CustomTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -68,12 +71,15 @@ function AdvisorStuTable(props) {
                                 </CustomTableCell>
                                 <CustomTableCell align="left">{student.student_lName}</CustomTableCell>
                                 <CustomTableCell align="left">{student.student_id}</CustomTableCell>
+                                <CustomTableCell align="left">Modify</CustomTableCell>
+                                <CustomTableCell align="left">Decline</CustomTableCell>
+                                <CustomTableCell align="left">Delete</CustomTableCell>
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </Paper>
-            );
+        );
 
     } else {
         console.log("API call missed, rendering with hardcoded values...");
@@ -85,6 +91,9 @@ function AdvisorStuTable(props) {
                             <CustomTableCell>Last Name</CustomTableCell>
                             <CustomTableCell align="left">First Name</CustomTableCell>
                             <CustomTableCell align="left">Student ID</CustomTableCell>
+                            <CustomTableCell align="left"></CustomTableCell>
+                            <CustomTableCell align="left"></CustomTableCell>
+                            <CustomTableCell align="left"></CustomTableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -95,6 +104,9 @@ function AdvisorStuTable(props) {
                                 </CustomTableCell>
                                 <CustomTableCell align="left">{row.fName}</CustomTableCell>
                                 <CustomTableCell align="left">{row.stu_id}</CustomTableCell>
+                                <CustomTableCell align="left">Modify</CustomTableCell>
+                                <CustomTableCell align="left">Decline</CustomTableCell>
+                                <CustomTableCell align="left">Delete</CustomTableCell>
                             </TableRow>
                         ))}
                     </TableBody>
@@ -104,8 +116,8 @@ function AdvisorStuTable(props) {
     }
 }
 
-AdvisorStuTable.propTypes = {
+AdvisorApptTable.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AdvisorStuTable);
+export default withStyles(styles)(AdvisorApptTable);

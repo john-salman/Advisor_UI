@@ -8,8 +8,8 @@ export const appointments = [
     },
     {
         title: "Book Flights to San Fran for Sales Trip",
-        startDate: new Date(2019, 4, 30, 10, 30),
-        endDate: new Date(2019, 4, 30, 11, 0),
+        startDate: new Date(2019, 3, 30, 10, 30),
+        endDate: new Date(2019, 3, 30, 11, 0),
         id: 1,
         location: "Room 1"
     },

@@ -10,8 +10,9 @@ class App extends Component {
         this.state = {
             successful_login: false,
             role: "",
-        }
-        this.submit_form = this.submit_form.bind(this);
+        };
+        this.submit_SignIn = this.submit_SignIn.bind(this);
+        this.submit_add = this.submit_add.bind(this);
         this.logout = this.logout.bind(this);
     }
 
@@ -26,7 +27,11 @@ class App extends Component {
         );
     }
 
-    submit_form(email, password, role) {
+    submit_add(student_fName, student_lName, advisingTime) {
+        console.log("Added Student Appointment with: ", student_fName, " ", student_lName, "at time: ", advisingTime)
+    }
+
+    submit_SignIn(email, password, role) {
         let success = false;
         let new_role = "";
         console.log("Submit form entered with values: ", email, password, role);
@@ -47,7 +52,7 @@ class App extends Component {
         if (this.state.successful_login && this.state.role === "advisor") {
             return (
                 <div className="App">
-                    <Advisor logout={this.logout}/>
+                    <Advisor submit_add={this.submit_add} logout={this.logout}/>
                 </div>
             );
         } else
@@ -57,7 +62,7 @@ class App extends Component {
         {
             return (
                 <div className="App">
-                    <LogIn submit_form={this.submit_form}/>
+                    <LogIn submit_SignIn={this.submit_SignIn}/>
                 </div>
             );
         }
