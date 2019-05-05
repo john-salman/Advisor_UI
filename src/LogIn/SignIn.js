@@ -13,9 +13,8 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-
-
 import Advisor from '../Advisor/Advisor'
+import axios from "../ConfigAxios";
 
 
 const styles = theme => ({
@@ -54,33 +53,23 @@ class SignIn extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: "",
-            password: "",
-            role: "advisee",
+            LogIn: "",
         }
-        this.onSubmit = this.onSubmit.bind(this);
     }
 
-    addEmail = event => {
-        console.log("EMAIL: ", event.target.value);
-        this.setState({ email: event.target.value })
-    };
-
-    addPassword = event => {
-        this.setState({ password: event.target.value })
-    };
-
-    addRole = event => {
-        if (this.state.role === "advisee") {
-            this.setState({role: event.target.value})
-        } else {
-            this.setState({role: "advisee"})
-        }
+    addLogIn = event => {
+        console.log(event.target.value)
+        this.setState({ LogIn: event.target.value })
     };
 
     onSubmit() {
-        console.log("we just submitted the form");
-        this.props.submit_SignIn(this.state.email, this.state.password, this.state.role)
+        console.log("WERE TRYING");
+        axios.get('login/' + this.state.LogIn).then(res => {
+            console.log("HERE:", JSON.stringify(res.data.user));
+            let user = res.data.user;
+            this.props.submit_SignIn(user)
+        });
+
     }
 
     render() {
@@ -96,17 +85,9 @@ class SignIn extends React.Component {
                     </Typography>
                     <form className={this.props.classes.form}>
                         <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="email">Email Address</InputLabel>
-                            <Input id="email" name="email" autoComplete="email" onChange={this.addEmail} autoFocus/>
+                            <InputLabel htmlFor="loginId">Log-In ID</InputLabel>
+                            <Input name="password" type="password" id="password" autoComplete="current-password" onChange={this.addLogIn}/>
                         </FormControl>
-                        <FormControl margin="normal" required fullWidth>
-                            <InputLabel htmlFor="password">Password</InputLabel>
-                            <Input name="password" type="password" id="password" autoComplete="current-password" onChange={this.addPassword}/>
-                        </FormControl>
-                        <FormControlLabel
-                            control={<Checkbox value="advisor" color="primary" onChange={this.addRole}/>}
-                            label="Advisor"
-                        />
                         <div>
                             <Button
                                 type="submit"

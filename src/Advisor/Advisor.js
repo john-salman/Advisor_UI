@@ -7,15 +7,15 @@ import AdvisorTabs from "./AdvisorTabs";
 // Test
 
 class Advisor extends Component{
-    constructor(props) {
-        super(props);
 
-        this.state = {
+        state = {
             selectedDate: new Date()
         };
 
-        this.dateSelect = this.dateSelect.bind(this);
-    }
+        constructor() {
+            super();
+            this.dateSelect = this.dateSelect.bind(this);
+        }
 
     componentDidMount() {
         axios.get('advisor/003456791').then(result => {
@@ -39,7 +39,11 @@ class Advisor extends Component{
     return (
         <div className="Adviser">
           <AdvisorBar logout={this.props.logout}/>
-          <AdvisorTabs submit_add={this.props.submit_add} dateSelect={this.dateSelect} selectedDate={this.state.selectedDate} student_data={this.state.student_data}/>
+          <AdvisorTabs
+              submit_add={this.props.submit_add}
+              dateSelect={this.dateSelect}
+              selectedDate={this.state.selectedDate}
+              student_data={this.state.student_data}/>
         </div>
     )
   }

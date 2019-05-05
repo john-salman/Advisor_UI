@@ -10,6 +10,7 @@ import {
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
 import { appointments } from "./testData";
+import axios from "../ConfigAxios";
 
 const theme = createMuiTheme({ palette: { type: "light", primary: blue } });
 
@@ -19,6 +20,16 @@ const schedStyle = {
 };
 
 class AdvisorStuSched extends React.PureComponent {
+    /*
+    componentDidMount() {
+        axios.get('meeting/`advisor_id`').then(result => {
+            console.log(result.data);
+            this.setState({
+                student_data: result.data,
+            })
+        });
+    }
+    */
     constructor(props) {
         super(props);
 
