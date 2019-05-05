@@ -7,12 +7,12 @@ import Advisor from "./Advisor/Advisor";
 class App extends Component {
    state = {
         user_data: "",
-        successful_login: false
+        successful_login: false,
     };
 
     constructor(props) {
         super(props);
-        console.log("App constructor called")
+        console.log("App constructor called");
 
         this.submit_SignIn = this.submit_SignIn.bind(this);
         this.submit_add = this.submit_add.bind(this);
@@ -22,7 +22,7 @@ class App extends Component {
 
     logout() {
         let reset_data = "";
-        let reset_login = false
+        let reset_login = false;
         this.setState(
             {
                 user_data: reset_data,
@@ -50,7 +50,7 @@ class App extends Component {
             console.log("User found, logging in");
             return (
                 <div className="App">
-                    <Advisor submit_add={this.submit_add} logout={this.logout}/>
+                    <Advisor user_data={this.state.user_data} submit_add={this.submit_add} logout={this.logout}/>
                 </div>
             );
         } else

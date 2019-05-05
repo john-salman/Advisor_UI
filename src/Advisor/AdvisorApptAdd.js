@@ -66,7 +66,7 @@ class AdvisorApptAdd extends Component {
 
     render() {
         return (
-            <form className={this.props.classes.container} noValidate autoComplete="off">
+            <div  style={{direction: 'flex', flexDirection: 'row' }}>
                 <TextField
                     required
                     id="standard-required"
@@ -102,8 +102,7 @@ class AdvisorApptAdd extends Component {
                         Add
                     </Button>
                 </div>
-            </form>
-
+            </div>
         );
     }
 }

@@ -38,7 +38,7 @@ class Advisor extends Component{
     render() {
     return (
         <div className="Adviser">
-          <AdvisorBar logout={this.props.logout}/>
+          <AdvisorBar fName={this.props.user_data.user_fName} lName={this.props.user_data.user_lName} logout={this.props.logout}/>
           <AdvisorTabs
               submit_add={this.props.submit_add}
               dateSelect={this.dateSelect}

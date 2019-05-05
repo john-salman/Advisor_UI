@@ -83,7 +83,7 @@ class SignIn extends React.Component {
                     <Typography component="h1" variant="h5">
                         Sign in
                     </Typography>
-                    <form className={this.props.classes.form}>
+                    <div>
                         <FormControl margin="normal" required fullWidth>
                             <InputLabel htmlFor="loginId">Log-In ID</InputLabel>
                             <Input name="password" type="password" id="password" autoComplete="current-password" onChange={this.addLogIn}/>
@@ -100,7 +100,7 @@ class SignIn extends React.Component {
                                 Sign in
                             </Button>
                         </div>
-                    </form>
+                    </div>
                 </Paper>
             </main>
         )
