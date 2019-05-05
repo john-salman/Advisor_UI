@@ -36,9 +36,12 @@ class AdvisorApptAdd extends Component {
         this.state = {
             student_fName: "",
             student_lName: "",
-            addTime: new Date(),
+            advisingTime: new Date(),
+            advisingDate: new Date(),
         };
-        this.addTime = this.addTime.bind(this)
+        this.addTime = this.addTime.bind(this);
+        this.addDate = this.addDate.bind(this);
+
     }
 
     addFname = event => {
@@ -49,17 +52,21 @@ class AdvisorApptAdd extends Component {
         this.setState({ student_lName: event.target.value })
     };
 
-    addTime = event => {
-        this.setState({ student_lName: event.target.value })
+    addTime = (time:Date) => {
+        this.setState({ advisingTime: time });
+    };
+
+    addDate = (date:Date) => {
+        this.setState({ advisingDate: date });
     };
 
     onSubmit() {
-        this.props.submit_add(this.state.student_fName, this.state.student_lName, this.state.advisingTime);
+        this.props.submit_add(this.state.student_fName, this.state.student_lName, this.state.advisingTime, this.state.advisingDate);
     }
 
     render() {
         return (
-            <form className={this.props.classes.container} noValidate autoComplete="off">
+            <div  style={{direction: 'flex', flexDirection: 'row' }}>
                 <TextField
                     required
                     id="standard-required"
@@ -78,7 +85,12 @@ class AdvisorApptAdd extends Component {
                     margin="normal"
                     onChange={this.addLname}
                 />
-                <AdvisorApptAddPicker addTime={this.addTime}/>
+                <AdvisorApptAddPicker
+                    date={this.state.advisingDate}
+                    time={this.state.advisingTime}
+                    addTime={this.addTime}
+                    addDate={this.addDate}
+                />
                 <div>
                     <Button
                         fullWidth
@@ -90,8 +102,7 @@ class AdvisorApptAdd extends Component {
                         Add
                     </Button>
                 </div>
-            </form>
-
+            </div>
         );
     }
 }

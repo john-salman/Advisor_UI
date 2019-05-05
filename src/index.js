@@ -7,7 +7,9 @@ import * as serviceWorker from './serviceWorker';
 
 
 ReactDOM.render(
-    <BrowserRouter>
+    <BrowserRouter
+        forceRefresh={false}
+    >
         <App />
     </BrowserRouter>,
     document.getElementById('root'));

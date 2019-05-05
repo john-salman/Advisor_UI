@@ -1,43 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
+import { DateFormatInput } from 'material-ui-next-pickers'
+import TimeFormatInput from "material-ui-next-pickers/dist/timepicker";
 
-const styles = theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        marginTop: 16,
-    },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: 200,
-    },
-});
+function AdvisorApptAddPicker(props){
 
-function AdvisorApptAddPicker(props) {
-    const { classes, addTime } = props;
-    console.log("askjdnf;aownerg", props);
-    return (
-        <form className={classes.container} noValidate>
-            <TextField
-                id="datetime-local"
-                label="Set appointment"
-                type="datetime-local"
-                defaultValue="2017-05-24T10:30"
-                className={classes.textField}
-                InputLabelProps={{
-                    shrink: true,
-                }}
-                onChange={() => addTime}
-            />
-        </form>
-    );
+        const { date, time, addDate, addTime } = props;
+        return (
+            <div>
+                <DateFormatInput name='date-input' value={date} onChange={addDate}/>
+                <TimeFormatInput name='time-input' value={time} onChange={addTime}/>
+            </div>
+        )
 }
 
-AdvisorApptAddPicker.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(AdvisorApptAddPicker);
+export default AdvisorApptAddPicker;
