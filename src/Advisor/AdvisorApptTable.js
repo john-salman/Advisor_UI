@@ -47,9 +47,9 @@ const rows = [
 ];
 
 function AdvisorApptTable(props) {
-    const { classes, student_data } = props;
+    const { classes, meeting_data } = props;
 
-    if (student_data) {
+    if (meeting_data) {
         return (
             <Paper className={classes.root}>
                 <Table className={classes.table}>
@@ -64,13 +64,13 @@ function AdvisorApptTable(props) {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {student_data.map(student => (
-                            <TableRow className={classes.row} key={student.student_id}>
+                        {meeting_data.map(student => (
+                            <TableRow className={classes.row} key={student.id}>
                                 <CustomTableCell component="th" scope="row">
                                     {student.student_fName}
                                 </CustomTableCell>
                                 <CustomTableCell align="left">{student.student_lName}</CustomTableCell>
-                                <CustomTableCell align="left">{student.student_id}</CustomTableCell>
+                                <CustomTableCell align="left">{student.advisee_id}</CustomTableCell>
                                 <CustomTableCell align="left">Modify</CustomTableCell>
                                 <CustomTableCell align="left">Decline</CustomTableCell>
                                 <CustomTableCell align="left">Delete</CustomTableCell>

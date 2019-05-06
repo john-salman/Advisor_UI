@@ -18,10 +18,17 @@ class Advisor extends Component{
         }
 
     componentDidMount() {
-        axios.get('advisor/003456791').then(result => {
-            console.log(result.data);
+        axios.get('advisor/' + this.props.user_data.login_id).then(result => {
+            console.log("This one fired: ", result.data);
             this.setState({
                 student_data: result.data,
+            })
+        });
+        axios.get('meeting/advisor/' + this.props.user_data.login_id).then(result => {
+            console.log("Meeting Data: ", result.data);
+            let data = JSON.parse(JSON.stringify(result.data));
+            this.setState({
+                meeting_data: data,
             })
         });
     }
@@ -37,13 +44,15 @@ class Advisor extends Component{
 
     render() {
     return (
-        <div className="Adviser">
+        <div className="Advisor">
           <AdvisorBar fName={this.props.user_data.user_fName} lName={this.props.user_data.user_lName} logout={this.props.logout}/>
           <AdvisorTabs
               submit_add={this.props.submit_add}
               dateSelect={this.dateSelect}
               selectedDate={this.state.selectedDate}
-              student_data={this.state.student_data}/>
+              student_data={this.state.student_data}
+              meeting_data={this.state.meeting_data}
+          />
         </div>
     )
   }
