@@ -52,9 +52,16 @@ class Advisor extends Component{
             }
         });
         if (advisee_id !== -1) {
-            axios.post('meeting/postAdvisor/' + this.props.user_data.login_id + '/' + advisee_id + '/' + _advisingTime)
+            let _advising_time_formatted = new Date(_advisingTime).toISOString().slice(0, 19).replace('T', ' ');
+            axios.post('meeting/postAdvisor/' + this.props.user_data.login_id + '/' + advisee_id + '/' + _advising_time_formatted)
                 .then(function (response) {
-                    console.log(response);
+                    axios.get('meeting/advisor/' + this.props.user_data.login_id).then(result => {
+                        console.log("Meeting Data: ", result.data);
+                        let data = JSON.parse(JSON.stringify(result.data));
+                        this.setState({
+                            meeting_data: data,
+                        })
+                    });
                 })
                 .catch(function (error) {
                     console.log(error);
