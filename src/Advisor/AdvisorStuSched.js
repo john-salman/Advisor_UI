@@ -21,16 +21,18 @@ const schedStyle = {
 };
 
 function format_data(data){
+    console.log("Preprocessing:", data);
     let formatted_data = data.map( advisee => {
-        let startDate = moment(advisee.advising_time);
-        let endDate = moment(advisee.advising_time).add(30, 'minute');
+        const d = new Date(advisee.advisingTime);
+
         let obj = {};
         obj.title = "Advising Appointment with " + advisee.student_fName + " " + advisee.student_lName;
-        obj.startDate = startDate;
-        obj.endDate = endDate;
+        obj.startDate = new Date(moment(d, 'YYYY-MM-DD hh:mm:ss').format( 'YYYY-MM-DD hh:mm:ss'));;
+        obj.endDate = new Date(moment(d, 'YYYY-MM-DD hh:mm:ss').add(30, 'minute').format('YYYY-MM-DD hh:mm:ss'));
         obj.id = advisee.id;
         return obj;
     });
+    console.log(formatted_data);
     return formatted_data;
 }
 

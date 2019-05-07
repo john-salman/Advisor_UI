@@ -12,8 +12,8 @@ class Advisor extends Component{
             selectedDate: new Date()
         };
 
-        constructor() {
-            super();
+        constructor(props) {
+            super(props);
             this.dateSelect = this.dateSelect.bind(this);
         }
 
