@@ -10,6 +10,7 @@ import {
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { blue } from "@material-ui/core/colors";
 import { appointments } from "./testData";
+import moment from 'moment';
 import axios from "../ConfigAxios";
 
 const theme = createMuiTheme({ palette: { type: "light", primary: blue } });
@@ -19,7 +20,23 @@ const schedStyle = {
     height: '80%',
 };
 
-class AdvisorStuSched extends React.PureComponent {
+function format_data(data){
+    console.log("Preprocessing:", data);
+    let formatted_data = data.map( advisee => {
+        const d = new Date(advisee.advisingTime);
+
+        let obj = {};
+        obj.title = "Advising Appointment with " + advisee.student_fName + " " + advisee.student_lName;
+        obj.startDate = new Date(moment(d, 'YYYY-MM-DD hh:mm:ss').format( 'YYYY-MM-DD hh:mm:ss'));;
+        obj.endDate = new Date(moment(d, 'YYYY-MM-DD hh:mm:ss').add(30, 'minute').format('YYYY-MM-DD hh:mm:ss'));
+        obj.id = advisee.id;
+        return obj;
+    });
+    console.log(formatted_data);
+    return formatted_data;
+}
+
+function AdvisorStuSched(props) {
     /*
     componentDidMount() {
         axios.get('meeting/`advisor_id`').then(result => {
@@ -30,29 +47,49 @@ class AdvisorStuSched extends React.PureComponent {
         });
     }
     */
-    constructor(props) {
-        super(props);
+    /*
+    {
+        title: "Book Flights to San Fran for Sales Trip",
+        startDate: new Date(2019, 3, 30, 10, 30),
+        endDate: new Date(2019, 3, 30, 11, 0),
+        id: 1,
+        location: "Room 1"
+    },
+{
+    "id": 2,
+    "declined": {
+    "type": "Buffer",
+        "data": [
+        1
+    ]
+},
+    "advisor_id": "003456791",
+    "advisee_id": "003504589",
+    "advisingTime": "2019-05-02T09:00:00.000Z",
+    "student_fName": "Barbara",
+    "student_lName": "Ramos"
+},
+*/
+/*
 
-        this.state = {
-            data: appointments
-        };
-    }
+*/
+    const {meeting_data, selectedDate} = props;
 
-    render() {
-        const { data } = this.state;
-        console.log(data);
-        return (
-            <MuiThemeProvider theme={theme}>
-                <Paper>
-                    <Scheduler style={schedStyle} data={data}>
-                        <ViewState currentDate={this.props.selectedDate} />
-                        <WeekView startDayHour={9} endDayHour={19} />
-                        <Appointments />
-                    </Scheduler>
-                </Paper>
-            </MuiThemeProvider>
-        );
-    }
+    console.log("It should be here: ", meeting_data);
+    let data = meeting_data ? format_data(meeting_data) : [];//this.format_data(this.props.meeting_data);
+    console.log("Data now exists: ", data);
+    return (
+        <MuiThemeProvider theme={theme}>
+            <Paper>
+                <Scheduler style={schedStyle} data={data}>
+                    <ViewState currentDate={selectedDate} />
+                    <WeekView startDayHour={9} endDayHour={19} />
+                    <Appointments />
+                </Scheduler>
+            </Paper>
+        </MuiThemeProvider>
+    );
+
 }
 
 export default AdvisorStuSched

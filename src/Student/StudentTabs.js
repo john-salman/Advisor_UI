@@ -6,11 +6,7 @@ import Tabs from '@material-ui/core/Tabs/index';
 import Tab from '@material-ui/core/Tab/index';
 import Typography from '@material-ui/core/Typography/index';
 
-import AdvisorStuDate from './AdvisorStuDate';
-import AdvisorStuSched from './AdvisorStuSched';
-import AdvisorStuTable from './AdvisorStuTable';
-import AdvisorApptAdd from "./AdvisorApptAdd";
-import AdvisorApptTable from './AdvisorApptTable';
+import StudentApptAdd from './StudentApptAdd';
 
 function TabContainer(props) {
     return (
@@ -31,7 +27,7 @@ const styles = theme => ({
     },
 });
 
-class AdvisorTabs extends React.Component {
+class StudentTabs extends React.Component {
 
     state = {
         value: 0,
@@ -45,27 +41,31 @@ class AdvisorTabs extends React.Component {
         const { classes } = this.props;
         const { value } = this.state;
 
+        console.log("It made it this far at least:", this.props.advisor_data);
         return (
             <div className={classes.root}>
                 <AppBar position="static">
                     <Tabs style={{background: "#5566c3"}} value={value} onChange={this.handleChange}>
-                        <Tab label="Schedule" />
-                        <Tab label="Current" />
+                        <Tab label="Advisor" />
                         <Tab label="Appointments" />
-                        <Tab label="Advisee's" />
                     </Tabs>
                 </AppBar>
-                {value === 0 && <TabContainer><AdvisorStuDate dateSelect={this.props.dateSelect}/><AdvisorStuSched meeting_data={this.props.meeting_data} selectedDate={this.props.selectedDate}/></TabContainer>}
-                {value === 1 && <TabContainer></TabContainer>}
-                {value === 2 && <TabContainer><AdvisorApptAdd submit_add={this.props.submit_add} /><AdvisorApptTable meeting_data={this.props.meeting_data}/></TabContainer>}
-                {value === 3 && <TabContainer><AdvisorStuTable student_data={this.props.student_data}/></TabContainer>}
+                {value === 0 && <TabContainer>
+                                    <StudentApptAdd
+                                        student_fName={this.props.student_fName}
+                                        student_lName={this.props.student_lName}
+                                        submit_add={this.props.submit_add}
+                                        advisor_data={this.props.advisor_data}
+                                    />
+                                </TabContainer>}
+                {value === 1 && <TabContainer>{JSON.stringify(this.props.meeting_data)}</TabContainer>}
             </div>
         );
     }
 }
 
-AdvisorTabs.propTypes = {
+StudentTabs.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(AdvisorTabs);
+export default withStyles(styles)(StudentTabs);

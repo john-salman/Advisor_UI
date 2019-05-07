@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 
 import LogIn from './LogIn/LogIn';
-import Advisor from "./Advisor/Advisor";
+import Advisor from './Advisor/Advisor';
+import Student from './Student/Student';
 
 
 class App extends Component {
@@ -53,11 +54,13 @@ class App extends Component {
                     <Advisor user_data={this.state.user_data} submit_add={this.submit_add} logout={this.logout}/>
                 </div>
             );
-        } else
-        /*
-            here we should have an if case for if the sign in was successful and role === "student"
-        */
-        {
+        } else if (this.state.successful_login && this.state.user_data.role === "student"){
+            return (
+                <div className="App">
+                    <Student user_data={this.state.user_data} submit_add={this.submit_add} logout={this.logout}/>
+                </div>
+            );
+        } else {
             return (
                 <div className="App">
                     <LogIn submit_SignIn={this.submit_SignIn}/>

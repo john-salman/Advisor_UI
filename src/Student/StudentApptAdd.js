@@ -5,8 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import withStyles from '@material-ui/core/styles/withStyles';
 
-
-import AdvisorApptAddPicker from './AdvisorApptAddPicker';
+import StudentApptAddPicker from './StudentApptAddPicker';
 import axios from "../ConfigAxios";
 
 const styles = theme => ({
@@ -30,7 +29,7 @@ const styles = theme => ({
     },
 });
 
-class AdvisorApptAdd extends Component {
+class StudentApptAdd extends Component {
     constructor(props) {
         super(props);
 
@@ -45,16 +44,6 @@ class AdvisorApptAdd extends Component {
 
     }
 
-
-
-    addFname = event => {
-        this.setState({ student_fName: event.target.value })
-    };
-
-    addLname = event => {
-        this.setState({ student_lName: event.target.value })
-    };
-
     addTime = (time:Date) => {
         this.setState({ advisingTime: time });
     };
@@ -64,31 +53,21 @@ class AdvisorApptAdd extends Component {
     };
 
     onSubmit() {
-        this.props.submit_add(this.state.student_fName, this.state.student_lName, this.state.advisingTime, this.state.advisingDate);
+        this.props.submit_add(this.props.student_fName, this.props.student_lName, this.state.advisingTime, this.state.advisingDate);
     }
 
+
     render() {
+        let advisor_fName = "Loading";
+        let advisor_lName = "Loading";
+        if (this.props.advisor_data) {
+            advisor_fName = this.props.advisor_data[0].advisor_fName;
+            advisor_lName = this.props.advisor_data[0].advisor_lName;
+        }
         return (
             <div  style={{direction: 'flex', flexDirection: 'row' }}>
-                <TextField
-                    required
-                    id="standard-required"
-                    label="Required"
-                    defaultValue="First Name"
-                    className={this.props.classes.textField}
-                    margin="normal"
-                    onChange={this.addFname}
-                />
-                <TextField
-                    required
-                    id="standard-required"
-                    label="Required"
-                    defaultValue="Last Name"
-                    className={this.props.classes.textField}
-                    margin="normal"
-                    onChange={this.addLname}
-                />
-                <AdvisorApptAddPicker
+                <p><strong>Advisor:  </strong>{advisor_fName + " " + advisor_lName}</p>
+                <StudentApptAddPicker
                     date={this.state.advisingDate}
                     time={this.state.advisingTime}
                     addTime={this.addTime}
@@ -110,4 +89,4 @@ class AdvisorApptAdd extends Component {
     }
 }
 
-export default withStyles(styles)(AdvisorApptAdd);
+export default withStyles(styles)(StudentApptAdd);
