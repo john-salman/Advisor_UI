@@ -63,8 +63,8 @@ class AdvisorApptAdd extends Component {
         this.setState({ advisingDate: date });
     };
 
-    onSubmit() {
-        this.props.submit_add(this.state.student_fName, this.state.student_lName, this.state.advisingTime + this.state.advisingDate);
+    onSubmit() { // need to rewrite logic to combine advisingTime with advisingDate
+        this.props.submit_add(this.state.student_fName, this.state.student_lName, this.state.advisingTime );
     }
 
     render() {
