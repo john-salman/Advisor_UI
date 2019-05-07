@@ -11,6 +11,7 @@ import AdvisorStuSched from './AdvisorStuSched';
 import AdvisorStuTable from './AdvisorStuTable';
 import AdvisorApptAdd from "./AdvisorApptAdd";
 import AdvisorApptTable from './AdvisorApptTable';
+import AdvisorCurrentEditor from './AdvisorCurrentEditor';
 
 function TabContainer(props) {
     return (
@@ -56,7 +57,7 @@ class AdvisorTabs extends React.Component {
                     </Tabs>
                 </AppBar>
                 {value === 0 && <TabContainer><AdvisorStuDate dateSelect={this.props.dateSelect}/><AdvisorStuSched meeting_data={this.props.meeting_data} selectedDate={this.props.selectedDate}/></TabContainer>}
-                {value === 1 && <TabContainer></TabContainer>}
+                {value === 1 && <TabContainer><AdvisorCurrentEditor/></TabContainer>}
                 {value === 2 && <TabContainer><AdvisorApptAdd submit_add={this.props.submit_add} /><AdvisorApptTable meeting_data={this.props.meeting_data}/></TabContainer>}
                 {value === 3 && <TabContainer><AdvisorStuTable student_data={this.props.student_data}/></TabContainer>}
             </div>
