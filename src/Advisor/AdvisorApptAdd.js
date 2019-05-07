@@ -64,12 +64,12 @@ class AdvisorApptAdd extends Component {
     };
 
     onSubmit() {
-        this.props.submit_add(this.state.student_fName, this.state.student_lName, this.state.advisingTime, this.state.advisingDate);
+        this.props.submit_add(this.state.student_fName, this.state.student_lName, this.state.advisingTime + this.state.advisingDate);
     }
 
     render() {
         return (
-            <div  style={{direction: 'flex', flexDirection: 'row' }}>
+            <div >
                 <TextField
                     required
                     id="standard-required"

@@ -17,7 +17,10 @@ const theme = createMuiTheme({ palette: { type: "light", primary: blue } });
 
 const schedStyle = {
     width: '65%',
+    maxWidth: '65%',
     height: '80%',
+    maxHeight: '80%',
+    overflow: 'hidden',
 };
 
 function format_data(data){
@@ -27,8 +30,8 @@ function format_data(data){
 
         let obj = {};
         obj.title = "Advising Appointment with " + advisee.student_fName + " " + advisee.student_lName;
-        obj.startDate = new Date(moment(d, 'YYYY-MM-DD hh:mm:ss a').format( 'YYYY-MM-DD hh:mm:ss a'));
-        obj.endDate = new Date(moment(d, 'YYYY-MM-DD hh:mm:ss a').add(30, 'minute').format('YYYY-MM-DD hh:mm:ss a'));
+        obj.startDate = new Date(moment(d, 'YYYY-MM-DD hh:mm:ss').format( 'YYYY-MM-DD hh:mm:ss'));
+        obj.endDate = new Date(moment(d, 'YYYY-MM-DD hh:mm:ss').add(30, 'min').format('YYYY-MM-DD hh:mm:ss'));
         obj.id = advisee.id;
         return obj;
     });
@@ -79,6 +82,7 @@ function AdvisorStuSched(props) {
     let data = meeting_data ? format_data(meeting_data) : [];//this.format_data(this.props.meeting_data);
     console.log("Data now exists: ", data);
     return (
+        <div style={{maxHeight: '80 vh'}}>
         <MuiThemeProvider theme={theme}>
             <Paper>
                 <Scheduler style={schedStyle} data={data}>
@@ -88,6 +92,7 @@ function AdvisorStuSched(props) {
                 </Scheduler>
             </Paper>
         </MuiThemeProvider>
+        </div>
     );
 
 }

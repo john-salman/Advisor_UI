@@ -16,7 +16,6 @@ class App extends Component {
         console.log("App constructor called");
 
         this.submit_SignIn = this.submit_SignIn.bind(this);
-        this.submit_add = this.submit_add.bind(this);
         this.logout = this.logout.bind(this);
     }
 
@@ -32,9 +31,6 @@ class App extends Component {
         );
     }
 
-    submit_add(student_fName, student_lName, advisingTime) {
-        console.log("Added Student Appointment with: ", student_fName, " ", student_lName, "at time: ", advisingTime)
-    }
 
     submit_SignIn(user) {
         console.log("Signing In");
