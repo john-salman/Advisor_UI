@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from '../ConfigAxios';
+import moment from 'moment'
 //import {Route, Link} from 'react-router-dom';
 import AdvisorBar from "./AdvisorBar";
 import AdvisorTabs from "./AdvisorTabs";
@@ -52,8 +53,8 @@ class Advisor extends Component{
             }
         });
         if (advisee_id !== -1) {
-            let _advising_time_formatted = new Date(_advisingTime).toISOString().slice(0, 19).replace('T', ' ');
-            axios.post('meeting/postAdvisor/' + this.props.user_data.login_id + '/' + advisee_id + '/' + _advising_time_formatted)
+            let _advising_time_formatted = _advisingTime.getUTCTimestamp();
+                axios.post('meeting/postAdvisor/' + this.props.user_data.login_id + '/' + advisee_id + '/' + _advising_time_formatted)
                 .then(function (response) {
                     axios.get('meeting/advisor/' + this.props.user_data.login_id).then(result => {
                         console.log("Meeting Data: ", result.data);
@@ -62,6 +63,7 @@ class Advisor extends Component{
                             meeting_data: data,
                         })
                     });
+                    console.log(response)
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -86,6 +88,23 @@ class Advisor extends Component{
         </div>
     )
   }
+}
+
+Date.prototype.getUTCTimestamp = function() {
+    var year = this.getFullYear(),
+    month = this.getMonth() + 1,
+    day = this.getDate(),
+    hours = this.getHours(),
+    minutes = this.getMinutes(),
+    seconds = this.getSeconds();
+
+    month = month < 10 ? "0" + month : month;
+    day = day < 10 ? "0" + day : day;
+    hours = hours < 10 ? "0" + hours : hours;
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
 }
 
 export default Advisor;

@@ -30,8 +30,9 @@ function format_data(data){
 
         let obj = {};
         obj.title = "Advising Appointment with " + advisee.student_fName + " " + advisee.student_lName;
-        obj.startDate = new Date(moment(d, 'YYYY-MM-DD hh:mm:ss').format( 'YYYY-MM-DD hh:mm:ss'));
-        obj.endDate = new Date(moment(d, 'YYYY-MM-DD hh:mm:ss').add(30, 'min').format('YYYY-MM-DD hh:mm:ss'));
+        obj.startDate = new Date(moment(d, 'YYYY-MM-DD H:mm:ss ').format( 'YYYY-MM-DD H:mm:ss'));
+        // So in the add() method is where we place the instructor preference for advising meeting length
+        obj.endDate = new Date(moment(d, 'YYYY-MM-DD H:mm:ss').add(30,'m').format('YYYY-MM-DD H:mm:ss'));
         obj.id = advisee.id;
         return obj;
     });
