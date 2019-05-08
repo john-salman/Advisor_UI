@@ -58,7 +58,7 @@ class SignIn extends React.Component {
     }
 
     addLogIn = event => {
-        console.log(event.target.value)
+        console.log(event.target.value);
         this.setState({ LogIn: event.target.value })
     };
 

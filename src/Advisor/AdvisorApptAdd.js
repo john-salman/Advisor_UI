@@ -64,7 +64,19 @@ class AdvisorApptAdd extends Component {
     };
 
     onSubmit() { // need to rewrite logic to combine advisingTime with advisingDate
-        this.props.submit_add(this.state.student_fName, this.state.student_lName, this.state.advisingTime );
+        let year = this.state.advisingDate.getFullYear();
+        let month = this.state.advisingDate.getMonth();
+        let date = this.state.advisingDate.getDate();
+        let newTime = this.state.advisingTime;
+        newTime.setFullYear(year);
+        newTime.setMonth(month);
+        newTime.setDate(date);
+        //newTime = newTime.toISOString().split('T')[0]+' '+ newTime.toTimeString().split(' ')[0];
+        //newTime = newTime.toLocaleString();
+        console.log("The old Time is: ", newTime);
+        //newTime = newTime.toISOString().slice(0, 19).replace('T', ' ');
+        //console.log("The new Time is: ", newTime);
+        this.props.submit_add(this.state.student_fName, this.state.student_lName, newTime);
     }
 
     render() {
