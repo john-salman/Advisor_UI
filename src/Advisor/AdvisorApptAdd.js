@@ -63,7 +63,7 @@ class AdvisorApptAdd extends Component {
         this.setState({ advisingDate: date });
     };
 
-    onSubmit() { // need to rewrite logic to combine advisingTime with advisingDate
+    onSubmit(_user_id) { // need to rewrite logic to combine advisingTime with advisingDate
         let year = this.state.advisingDate.getFullYear();
         let month = this.state.advisingDate.getMonth();
         let date = this.state.advisingDate.getDate();
@@ -76,10 +76,11 @@ class AdvisorApptAdd extends Component {
         console.log("The old Time is: ", newTime);
         //newTime = newTime.toISOString().slice(0, 19).replace('T', ' ');
         //console.log("The new Time is: ", newTime);
-        this.props.submit_add(this.state.student_fName, this.state.student_lName, newTime);
+        this.props.submit_add(this.state.student_fName, this.state.student_lName, newTime, _user_id);
     }
 
     render() {
+        console.log("Just curious", this.props);
         return (
             <div >
                 <TextField
@@ -112,7 +113,7 @@ class AdvisorApptAdd extends Component {
                         variant="contained"
                         color="primary"
                         className={this.props.classes.submit}
-                        onClick={() => this.onSubmit()}
+                        onClick={() => this.onSubmit(this.props.user_id)}
                     >
                         Add
                     </Button>

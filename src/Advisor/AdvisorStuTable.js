@@ -55,8 +55,8 @@ function AdvisorStuTable(props) {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow >
-                            <CustomTableCell><h2>Last Name</h2></CustomTableCell>
-                            <CustomTableCell align="left"><h2>First Name</h2></CustomTableCell>
+                            <CustomTableCell><h2>First Name</h2></CustomTableCell>
+                            <CustomTableCell align="left"><h2>Last Name</h2></CustomTableCell>
                             <CustomTableCell align="left"><h2>Student ID</h2></CustomTableCell>
                         </TableRow>
                     </TableHead>

@@ -5,6 +5,7 @@ import AppBar from '@material-ui/core/AppBar/index';
 import Tabs from '@material-ui/core/Tabs/index';
 import Tab from '@material-ui/core/Tab/index';
 import Typography from '@material-ui/core/Typography/index';
+import axios from '../ConfigAxios';
 
 import AdvisorStuDate from './AdvisorStuDate';
 import AdvisorStuSched from './AdvisorStuSched';
@@ -34,13 +35,42 @@ const styles = theme => ({
 
 class AdvisorTabs extends React.Component {
 
-    state = {
-        value: 0,
-    };
+    constructor(props){
+        super(props);
+        this.state = {
+            value: 0,
+        };
+        this.deleteAppointment = this.deleteAppointment.bind(this);
+    }
 
     handleChange = (event, value) => {
         this.setState({ value });
     };
+
+
+    deleteAppointment(_id) {
+        console.log("Deleting appointment: ", _id);
+        axios.post('meeting/advisor/delete/' + _id)
+            .then( response => {
+                console.log(response)
+            })
+            .catch( error => {
+                console.log(error);
+            });
+    }
+
+    declineAppointment(_id) {
+        console.log("Declining appointment: ", _id);
+        axios.post('meeting/decline/' + _id)
+            .then( response => {
+                console.log(response)
+            })
+            .catch( error => {
+                console.log(error);
+            });
+
+
+    }
 
     render() {
         const { classes } = this.props;
@@ -58,7 +88,7 @@ class AdvisorTabs extends React.Component {
                 </AppBar>
                 {value === 0 && <TabContainer><AdvisorStuDate dateSelect={this.props.dateSelect}/><AdvisorStuSched meeting_data={this.props.meeting_data} selectedDate={this.props.selectedDate}/></TabContainer>}
                 {value === 1 && <TabContainer><AdvisorCurrentEditor/></TabContainer>}
-                {value === 2 && <TabContainer><AdvisorApptAdd submit_add={this.props.submit_add} /><AdvisorApptTable meeting_data={this.props.meeting_data}/></TabContainer>}
+                {value === 2 && <TabContainer><AdvisorApptAdd submit_add={this.props.submit_add} user_id={this.props.user_id}/><AdvisorApptTable deleteAppointment={this.deleteAppointment} declineAppointment={this.declineAppointment} meeting_data={this.props.meeting_data}/></TabContainer>}
                 {value === 3 && <TabContainer><AdvisorStuTable student_data={this.props.student_data}/></TabContainer>}
             </div>
         );
