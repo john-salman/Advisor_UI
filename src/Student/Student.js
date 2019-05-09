@@ -14,7 +14,9 @@ class Student extends Component{
 
     constructor(props) {
         super(props);
+        this.getMeeting = this.getMeeting.bind(this);
     }
+
 
     componentDidMount() {
         axios.get('advisee/' + this.props.user_data.login_id).then(result => {
@@ -32,6 +34,16 @@ class Student extends Component{
         });
     }
 
+    getMeeting(){
+      axios.get('meeting/advisee/' + this.props.user_data.login_id).then(result => {
+          console.log("Meeting Data: ", result.data);
+          let data = JSON.parse(JSON.stringify(result.data));
+          this.setState({
+              meeting_data: data,
+          })
+      });
+    }
+
 
     render() {
         return (
@@ -42,6 +54,7 @@ class Student extends Component{
                     logout={this.props.logout}
                 />
                 <StudentTabs
+                    getMeeting={this.getMeeting}
                     student_fName={this.props.user_data.user_fName}
                     student_lName={this.props.user_data.user_lName}
                     submit_add={this.props.submit_add}
