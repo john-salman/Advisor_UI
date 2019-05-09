@@ -49,9 +49,20 @@ const rows = [
     createData('Platypus', 'Perry', 324241234),
 ];
 
-function StudentApptTable(props) {
-    const { classes, meeting_data, deleteAppointment } = props;
+function lockChecker(lock_data, id, advisingTime, deleteAppointment){
+  const now = new Date();
+  const d = new Date(advisingTime);
+  let endDate = new Date(moment(d, 'YYYY-MM-DD H:mm:ss').add(-lock_data[0].lockDays,'d').format('YYYY-MM-DD H:mm:ss'));
+  if (now < d && now > endDate){ //event is in the past
+      alert("event is within the lock period set by professor");
+  }else{
+    deleteAppointment(id);
+  }
+}
 
+
+function StudentApptTable(props) {
+    const { classes, meeting_data, lock_data, deleteAppointment } = props;
     if (meeting_data) {
         return (
             <Paper className={classes.root}>
@@ -75,7 +86,7 @@ function StudentApptTable(props) {
                                 <CustomTableCell align="left">{student.advisor_id}</CustomTableCell>
                                 <CustomTableCell align="left">{moment(new Date(student.advisingTime), 'MMMM Do YYYY, h:mm a').format('MMMM Do YYYY, h:mm a')}</CustomTableCell>
                                 <CustomTableCell align="left">
-                                   <Button variant="contained" color="secondary" className={classes.button} onClick={() => deleteAppointment(student.id)}>
+                                   <Button variant="contained" color="secondary" className={classes.button} onClick={() => lockChecker(lock_data, student.id, student.advisingTime, deleteAppointment)}>
                                        Delete
                                        <DeleteIcon className={classes.rightIcon} />
                                    </Button>
