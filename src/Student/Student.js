@@ -15,8 +15,8 @@ class Student extends Component{
     constructor(props) {
         super(props);
         this.getMeeting = this.getMeeting.bind(this);
-        console.log("initial props:");
-        console.log(this.props);
+        // console.log("initial props:");
+        // console.log(this.props);
     }
 
 
@@ -48,16 +48,24 @@ class Student extends Component{
     componentDidMount() {
        axios.all([this.getAdvisorData(), this.getMeetingData()])
            .then(axios.spread((_stu_response, _meet_response) => {
-               console.log("advisorData:");
-               console.log(_stu_response);
-               console.log("meeting response:");
-               console.log(_meet_response);
-                   axios.get('advisee/lock/' + _stu_response.data[0].advisor_id).then(result => {
-                       console.log("lock info: ", result.data);
-                       this.setState({
-                         lock_data: result.data
-                       })
-                   });
+               // console.log("advisorData:");
+               // console.log(_stu_response);
+               // console.log("meeting response:");
+               // console.log(_meet_response);
+               axios.get('advisee/lock/' + _stu_response.data[0].advisor_id).then(result => {
+                   // console.log("lock info: ", result.data);
+                   this.setState({
+                     lock_data: result.data
+                   })
+               });
+               axios.get('advisee/preference/' + _stu_response.data[0].advisor_id ).then(result => {
+                   // console.log("lock info: ", result.data);
+                   console.log("preferences");
+                   console.log(result.data);
+                   this.setState({
+                     preference_data: result.data
+                   })
+               });
                this.setState({
                    advisor_data: _stu_response.data,
                    meeting_data: _meet_response.data,
@@ -92,6 +100,7 @@ class Student extends Component{
                     lock_data={this.state.lock_data}
                     advisor_data={this.state.advisor_data}
                     meeting_data={this.state.meeting_data}
+                    preference_data={this.state.preference_data}
                 />
             </div>
         )

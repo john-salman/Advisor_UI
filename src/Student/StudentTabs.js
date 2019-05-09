@@ -76,6 +76,7 @@ class StudentTabs extends React.Component {
                                         student_lName={this.props.student_lName}
                                         submit_add={this.props.submit_add}
                                         advisor_data={this.props.advisor_data}
+                                        preference_data={this.props.preference_data}
                                     />
                                 </TabContainer>}
                 {value === 1 && <TabContainer>
