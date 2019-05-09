@@ -52,7 +52,8 @@ class AdvisorTabs extends React.Component {
         console.log("Deleting appointment: ", _id);
         axios.post('meeting/advisor/delete/' + _id)
             .then( response => {
-                console.log(response)
+                console.log(response);
+                this.props.updateMeetingData()
             })
             .catch( error => {
                 console.log(error);
@@ -63,7 +64,8 @@ class AdvisorTabs extends React.Component {
         console.log("Declining appointment: ", _id);
         axios.post('meeting/decline/' + _id)
             .then( response => {
-                console.log(response)
+                console.log(response);
+                this.props.updateMeetingData()
             })
             .catch( error => {
                 console.log(error);
@@ -71,6 +73,8 @@ class AdvisorTabs extends React.Component {
 
 
     }
+
+
 
     render() {
         const { classes } = this.props;
@@ -87,7 +91,7 @@ class AdvisorTabs extends React.Component {
                     </Tabs>
                 </AppBar>
                 {value === 0 && <TabContainer><AdvisorStuDate dateSelect={this.props.dateSelect}/><AdvisorStuSched meeting_data={this.props.meeting_data} selectedDate={this.props.selectedDate}/></TabContainer>}
-                {value === 1 && <TabContainer><AdvisorCurrentEditor/></TabContainer>}
+                {value === 1 && <TabContainer><AdvisorCurrentEditor meeting_data={this.props.meeting_data} /></TabContainer>}
                 {value === 2 && <TabContainer><AdvisorApptAdd submit_add={this.props.submit_add} user_id={this.props.user_id}/><AdvisorApptTable deleteAppointment={this.deleteAppointment} declineAppointment={this.declineAppointment} meeting_data={this.props.meeting_data}/></TabContainer>}
                 {value === 3 && <TabContainer><AdvisorStuTable student_data={this.props.student_data}/></TabContainer>}
             </div>
