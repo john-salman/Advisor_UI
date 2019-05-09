@@ -40,9 +40,9 @@ class AdvisorBar extends React.Component {
         left: false,
     };
 
-    toggleDrawer = (side, open) => () => {
+    toggleDrawer = (side, _open) => () => {
         this.setState({
-            [side]: open,
+            [side]: _open,
         });
     };
 
@@ -53,9 +53,9 @@ class AdvisorBar extends React.Component {
         const sideList = (
             <div className={classes.list}>
                 <List>
-                    <ListItem button key={"Profile"}>
-                        <ListItemIcon><PermIdentityTwoTone/></ListItemIcon>
-                        <ListItemText primary={"Profile"} />
+                    <ListItem button key={"Set Preferences"} onClick={this.props.handleClickOpen}>
+                            <ListItemIcon><PermIdentityTwoTone/></ListItemIcon>
+                            <ListItemText primary={"Set Preferences"} />
                     </ListItem>
                     <ListItem button key={"Settings"}>
                         <ListItemIcon><Settings/></ListItemIcon>

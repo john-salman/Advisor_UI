@@ -67,7 +67,11 @@ class SignIn extends React.Component {
         axios.get('login/' + this.state.LogIn).then(res => {
             console.log("HERE:", JSON.stringify(res.data.user));
             let user = res.data.user;
-            this.props.submit_SignIn(user)
+            if (user) {
+                this.props.submit_SignIn(user);
+            } else {
+                alert("Login Id not found");
+            }
         });
 
     }

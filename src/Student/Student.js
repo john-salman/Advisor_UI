@@ -15,6 +15,7 @@ class Student extends Component{
     constructor(props) {
         super(props);
         this.getMeeting = this.getMeeting.bind(this);
+        this.submit_add_student = this.submit_add_student.bind(this);
         // console.log("initial props:");
         // console.log(this.props);
     }
@@ -83,6 +84,21 @@ class Student extends Component{
       });
     }
 
+    submit_add_student(  _advisor_id, _user_id, _advisingTime) {
+        console.log("This is the state:", this.state);
+
+        let _advising_time_formatted = _advisingTime.getTimestamp();
+        let get_pointer = this.getMeeting();
+        axios.post('meeting/postAdvisor/' + _advisor_id + '/' + _user_id + '/' + _advising_time_formatted)
+            .then(function (response) {
+                console.log(response);
+                get_pointer();
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
 
     render() {
         return (
@@ -96,7 +112,8 @@ class Student extends Component{
                     getMeeting={this.getMeeting}
                     student_fName={this.props.user_data.user_fName}
                     student_lName={this.props.user_data.user_lName}
-                    submit_add={this.props.submit_add}
+                    user_id={this.props.user_data.login_id}
+                    submit_add_student={this.submit_add_student}
                     lock_data={this.state.lock_data}
                     advisor_data={this.state.advisor_data}
                     meeting_data={this.state.meeting_data}

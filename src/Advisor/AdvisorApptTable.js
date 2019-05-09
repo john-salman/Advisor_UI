@@ -95,6 +95,7 @@ function AdvisorApptTable(props) {
                         ))}
                     </TableBody>
                 </Table>
+                <p>*Red lines indicate a declined appointment</p>
             </Paper>
         );
 

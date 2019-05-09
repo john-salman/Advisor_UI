@@ -4,6 +4,7 @@ import moment from 'moment'
 //import {Route, Link} from 'react-router-dom';
 import AdvisorBar from "./AdvisorBar";
 import AdvisorTabs from "./AdvisorTabs";
+import AdvisorBarDialog from "./AdvisorBarDialog";
 
 // Test
 
@@ -15,12 +16,23 @@ class Advisor extends Component{
         this.state = {
             selectedDate: new Date(),
             student_data: "",
+            open: false,
         };
 
         this.updateMeetingData = this.updateMeetingData.bind(this);
         this.submit_add = this.submit_add.bind(this);
         this.dateSelect = this.dateSelect.bind(this);
+        this.handleClickOpen = this.handleClickOpen.bind(this);
+        this.handleClose = this.handleClose.bind(this);
     }
+
+    handleClickOpen = () => {
+        this.setState({ open: true });
+    };
+
+    handleClose = () => {
+        this.setState({ open: false });
+    };
 
     getStudentData() {
         return axios.get('advisor/' + this.props.user_data.login_id);
@@ -67,7 +79,7 @@ class Advisor extends Component{
         });
         if (advisee_id !== -1) {
             let _advising_time_formatted = _advisingTime.getTimestamp();
-            let update_pointer = this.updateMeetingData;
+            let update_pointer = this.updateMeetingData();
             axios.post('meeting/postAdvisor/' + _user_id + '/' + advisee_id + '/' + _advising_time_formatted)
                 .then(function (response) {
                     console.log(response);
@@ -85,7 +97,16 @@ class Advisor extends Component{
     render() {
     return (
         <div className="Advisor">
-          <AdvisorBar fName={this.props.user_data.user_fName} lName={this.props.user_data.user_lName} logout={this.props.logout}/>
+        <AdvisorBarDialog
+            open={this.state.open}
+            handleClose={this.handleClose}
+        />
+        <AdvisorBar
+              fName={this.props.user_data.user_fName}
+              lName={this.props.user_data.user_lName}
+              logout={this.props.logout}
+              handleClickOpen={this.handleClickOpen}
+          />
           <AdvisorTabs
               submit_add={this.submit_add}
               dateSelect={this.dateSelect}

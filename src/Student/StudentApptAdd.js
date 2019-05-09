@@ -52,8 +52,15 @@ class StudentApptAdd extends Component {
         this.setState({ advisingDate: date });
     };
 
-    onSubmit() {
-        this.props.submit_add(this.props.student_fName, this.props.student_lName, this.state.advisingTime, this.state.advisingDate);
+    onSubmit(_advisor_id) {
+        let year = this.state.advisingDate.getFullYear();
+        let month = this.state.advisingDate.getMonth();
+        let date = this.state.advisingDate.getDate();
+        let newTime = this.state.advisingTime;
+        newTime.setFullYear(year);
+        newTime.setMonth(month);
+        newTime.setDate(date);
+        this.props.submit_add_student( _advisor_id, this.props.user_id, newTime);
     }
 
 
@@ -79,7 +86,7 @@ class StudentApptAdd extends Component {
                         variant="contained"
                         color="primary"
                         className={this.props.classes.submit}
-                        onClick={() => this.onSubmit()}
+                        onClick={() => this.onSubmit(this.props.advisor_data[0].advisor_id)}
                     >
                         Add
                     </Button>

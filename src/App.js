@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import LogIn from './LogIn/LogIn';
 import Advisor from './Advisor/Advisor';
 import Student from './Student/Student';
+import axios from "./ConfigAxios";
 
 
 class App extends Component {
@@ -41,19 +42,21 @@ class App extends Component {
         });
     }
 
+
+
     render () {
         console.log("App render called with values: ", this.state);
         if (this.state.successful_login && this.state.user_data.role === "advisor") {
             console.log("User found, logging in");
             return (
                 <div className="App">
-                    <Advisor user_data={this.state.user_data} submit_add={this.submit_add} logout={this.logout}/>
+                    <Advisor user_data={this.state.user_data} logout={this.logout}/>
                 </div>
             );
         } else if (this.state.successful_login && this.state.user_data.role === "student"){
             return (
                 <div className="App">
-                    <Student user_data={this.state.user_data} submit_add={this.submit_add} logout={this.logout}/>
+                    <Student user_data={this.state.user_data} logout={this.logout}/>
                 </div>
             );
         } else {

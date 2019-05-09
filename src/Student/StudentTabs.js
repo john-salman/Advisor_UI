@@ -74,7 +74,8 @@ class StudentTabs extends React.Component {
                                     <StudentApptAdd
                                         student_fName={this.props.student_fName}
                                         student_lName={this.props.student_lName}
-                                        submit_add={this.props.submit_add}
+                                        user_id={this.props.user_id}
+                                        submit_add_student={this.props.submit_add_student}
                                         advisor_data={this.props.advisor_data}
                                         preference_data={this.props.preference_data}
                                     />
