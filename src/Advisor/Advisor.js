@@ -20,20 +20,23 @@ class Advisor extends Component{
             this.dateSelect = this.dateSelect.bind(this);
         }
 
+    getStudentData() {
+        return axios.get('advisor/' + this.props.user_data.login_id);
+    }
+
+    getMeetingData() {
+        return axios.get('meeting/advisor/' + this.props.user_data.login_id);
+    }
+
+
     componentDidMount() {
-        axios.get('advisor/' + this.props.user_data.login_id).then(result => {
-            console.log("This one fired: ", result.data);
-            this.setState({
-                student_data: result.data,
-            })
-        });
-        axios.get('meeting/advisor/' + this.props.user_data.login_id).then(result => {
-            console.log("Meeting Data: ", result.data);
-            let data = JSON.parse(JSON.stringify(result.data));
-            this.setState({
-                meeting_data: data,
-            })
-        });
+        axios.all([this.getStudentData(), this.getMeetingData()])
+            .then(axios.spread((_stu_response, _meet_response) => {
+                this.setState({
+                    student_data: _stu_response.data,
+                    meeting_data: _meet_response.data,
+                })
+            }));
     }
 
     dateSelect(date) {
@@ -44,7 +47,7 @@ class Advisor extends Component{
         });
     }
 
-    submit_add(_student_fName, _student_lName, _advisingTime) {
+    submit_add(_student_fName, _student_lName, _advisingTime, _user_id) {
         console.log("This is the state:", this.state);
         let advisee_id = -1;
         this.state.student_data.forEach( student => {
@@ -53,16 +56,9 @@ class Advisor extends Component{
             }
         });
         if (advisee_id !== -1) {
-            let _advising_time_formatted = _advisingTime.getUTCTimestamp();
-                axios.post('meeting/postAdvisor/' + this.props.user_data.login_id + '/' + advisee_id + '/' + _advising_time_formatted)
+            let _advising_time_formatted = _advisingTime.getTimestamp();
+                axios.post('meeting/postAdvisor/' + _user_id + '/' + advisee_id + '/' + _advising_time_formatted)
                 .then(function (response) {
-                    axios.get('meeting/advisor/' + this.props.user_data.login_id).then(result => {
-                        console.log("Meeting Data: ", result.data);
-                        let data = JSON.parse(JSON.stringify(result.data));
-                        this.setState({
-                            meeting_data: data,
-                        })
-                    });
                     console.log(response)
                 })
                 .catch(function (error) {
@@ -81,6 +77,7 @@ class Advisor extends Component{
           <AdvisorTabs
               submit_add={this.submit_add}
               dateSelect={this.dateSelect}
+              user_id={this.props.user_data.login_id}
               selectedDate={this.state.selectedDate}
               student_data={this.state.student_data}
               meeting_data={this.state.meeting_data}
@@ -90,7 +87,7 @@ class Advisor extends Component{
   }
 }
 
-Date.prototype.getUTCTimestamp = function() {
+Date.prototype.getTimestamp = function() {
     var year = this.getFullYear(),
     month = this.getMonth() + 1,
     day = this.getDate(),
@@ -105,6 +102,6 @@ Date.prototype.getUTCTimestamp = function() {
     seconds = seconds < 10 ? "0" + seconds : seconds;
 
     return year + "-" + month + "-" + day + " " + hours + ":" + minutes + ":" + seconds;
-}
+};
 
 export default Advisor;

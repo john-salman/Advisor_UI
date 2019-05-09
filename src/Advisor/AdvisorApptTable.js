@@ -7,6 +7,11 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import moment from 'moment';
+
+import DeleteIcon from '@material-ui/icons/Delete';
+import NotInterestedIcon from '@material-ui/icons/NotInterested';
 
 const CustomTableCell = withStyles(theme => ({
     head: {
@@ -47,7 +52,7 @@ const rows = [
 ];
 
 function AdvisorApptTable(props) {
-    const { classes, meeting_data } = props;
+    const { classes, meeting_data, deleteAppointment, declineAppointment} = props;
 
     if (meeting_data) {
         return (
@@ -55,8 +60,8 @@ function AdvisorApptTable(props) {
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow >
-                            <CustomTableCell><h2>Last Name</h2></CustomTableCell>
-                            <CustomTableCell align="left"><h2>First Name</h2></CustomTableCell>
+                            <CustomTableCell><h2>First Name</h2></CustomTableCell>
+                            <CustomTableCell align="left"><h2>Last Name</h2></CustomTableCell>
                             <CustomTableCell align="left"><h2>Student ID</h2></CustomTableCell>
                             <CustomTableCell align="left"><p> </p></CustomTableCell>
                             <CustomTableCell align="left"><p> </p></CustomTableCell>
@@ -71,9 +76,19 @@ function AdvisorApptTable(props) {
                                 </CustomTableCell>
                                 <CustomTableCell align="left">{student.student_lName}</CustomTableCell>
                                 <CustomTableCell align="left">{student.advisee_id}</CustomTableCell>
-                                <CustomTableCell align="left">Modify</CustomTableCell>
-                                <CustomTableCell align="left">Decline</CustomTableCell>
-                                <CustomTableCell align="left">Delete</CustomTableCell>
+                                <CustomTableCell align="left">{moment(new Date(student.advisingTime), 'MMMM Do YYYY, hh:mm a').format('MMMM Do YYYY, hh:mm a')}</CustomTableCell>
+                                <CustomTableCell align="left">
+                                    <Button variant="contained" color="default" className={classes.button} onClick={() => declineAppointment(student.id)}>
+                                        Decline
+                                    <NotInterestedIcon className={classes.rightIcon} />
+                                </Button></CustomTableCell>
+                                <CustomTableCell align="left">
+                                    <Button variant="contained" color="secondary" className={classes.button} onClick={() => deleteAppointment(student.id)}>
+                                        Delete
+                                        <DeleteIcon className={classes.rightIcon} />
+                                    </Button>
+                                </CustomTableCell>
+
                             </TableRow>
                         ))}
                     </TableBody>
