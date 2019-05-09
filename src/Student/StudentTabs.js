@@ -32,18 +32,16 @@ class StudentTabs extends React.Component {
     constructor(props){
       super(props);
       this.deleteAppointment = this.deleteAppointment.bind(this);
-
+      console.log(props);
     }
 
-    componentDidMount(){
-        //do call to get the preferences and lock time for
-    }
+
 
     deleteAppointment(id){
-      alert("wsdfsfa" + id);
+
       axios.post('meeting/advisor/delete/' + id).then( response => {
        console.log(response)
-       //call state mutating function  from student to re-update the calls
+       //call state mutating function  from student to re-update the records visually.
        this.props.getMeeting();
 
        }).catch( error => {
@@ -84,6 +82,7 @@ class StudentTabs extends React.Component {
                                   <StudentApptTable
                                     deleteAppointment={this.deleteAppointment}
                                     meeting_data={this.props.meeting_data}
+                                    lock_data={this.props.lock_data}
                                   />
 
                   </TabContainer>}
