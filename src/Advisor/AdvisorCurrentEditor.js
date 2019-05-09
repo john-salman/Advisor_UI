@@ -5,6 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuItem from '@material-ui/core/MenuItem';
 import TextField from '@material-ui/core/TextField';
 import Button from "@material-ui/core/Button";
+import moment from 'moment';
 
 const styles = theme => ({
     container: {
@@ -42,16 +43,43 @@ class AdvisorCurrentEditor extends React.Component {
         });
     };
 
-    onEndAppt() {
-        this.props.submit_appt(this.state.text);
+    onEndAppt(_advisee_id, _id) {
+        if (_id !== -1) {
+            this.props.submit_appt(this.state.text, _advisee_id, _id);
+        } else {
+            alert("You currently don't have an appointment")
+        }
     };
 
 
     render() {
-        const { classes } = this.props;
+        const { classes, meeting_data } = this.props;
+        let right_now = new Date();
+        let current_advisee = "";
+        let current_advisee_id = "";
+        let current_appt_id = "";
+        let end_appt = "";
+        let current_time = "";
+        meeting_data.forEach(current => {
+            const d = new Date(current.advisingTime);
+            end_appt = new Date(moment(d, 'YYYY-MM-DD H:mm:ss').add(30,'m').format('YYYY-MM-DD H:mm:ss'));
+            let start_appt =new Date(moment(d, 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss'));
+            console.log("Because yknow", right_now, start_appt, end_appt);
+            if (start_appt < right_now && right_now < end_appt) {
+                console.log("We had a hit!", start_appt, current);
+                current_advisee = current.student_fName + " " + current.student_lName;
+                current_advisee_id = current.advisee_id;
+                current_appt_id = current.id;
+                current_time = d;
+            }
+        });
 
         return (
             <div>
+                <h3>Current Advisee:</h3>
+                <p>{current_advisee}</p>
+                <h4>Appointment End:</h4>
+                <p>{current_time ? moment(current_time, 'MMMM Do YYYY, hh:mm a').add(30, 'm').format('MMMM Do YYYY, hh:mm a') : current_time}</p>
                 <TextField
                     id="filled-textarea"
                     label="Appointment Notes"
@@ -67,7 +95,7 @@ class AdvisorCurrentEditor extends React.Component {
                     variant="contained"
                     color="primary"
                     className={this.props.classes.submit}
-                    onClick={() => this.onSubmit()}
+                    onClick={() => this.onEndAppt(current_advisee_id ? current_advisee_id : -1, current_appt_id ? current_appt_id : -1)}
                 >
                     End Appointment
                 </Button>

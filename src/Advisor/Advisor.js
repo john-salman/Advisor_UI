@@ -9,16 +9,18 @@ import AdvisorTabs from "./AdvisorTabs";
 
 class Advisor extends Component{
 
-        state = {
+    constructor(props) {
+        super(props);
+
+        this.state = {
             selectedDate: new Date(),
             student_data: "",
         };
 
-        constructor(props) {
-            super(props);
-            this.submit_add = this.submit_add.bind(this);
-            this.dateSelect = this.dateSelect.bind(this);
-        }
+        this.updateMeetingData = this.updateMeetingData.bind(this);
+        this.submit_add = this.submit_add.bind(this);
+        this.dateSelect = this.dateSelect.bind(this);
+    }
 
     getStudentData() {
         return axios.get('advisor/' + this.props.user_data.login_id);
@@ -28,6 +30,13 @@ class Advisor extends Component{
         return axios.get('meeting/advisor/' + this.props.user_data.login_id);
     }
 
+    updateMeetingData() {
+        axios.get('meeting/advisor/' + this.props.user_data.login_id).then(response => {
+            this.setState({
+                meeting_data: response.data,
+            })
+        });
+    }
 
     componentDidMount() {
         axios.all([this.getStudentData(), this.getMeetingData()])
@@ -57,9 +66,11 @@ class Advisor extends Component{
         });
         if (advisee_id !== -1) {
             let _advising_time_formatted = _advisingTime.getTimestamp();
-                axios.post('meeting/postAdvisor/' + _user_id + '/' + advisee_id + '/' + _advising_time_formatted)
+            let update_pointer = this.updateMeetingData;
+            axios.post('meeting/postAdvisor/' + _user_id + '/' + advisee_id + '/' + _advising_time_formatted)
                 .then(function (response) {
-                    console.log(response)
+                    console.log(response);
+                    update_pointer();
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -81,6 +92,7 @@ class Advisor extends Component{
               selectedDate={this.state.selectedDate}
               student_data={this.state.student_data}
               meeting_data={this.state.meeting_data}
+              updateMeetingData={this.updateMeetingData}
           />
         </div>
     )
