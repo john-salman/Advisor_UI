@@ -5,8 +5,9 @@ import AppBar from '@material-ui/core/AppBar/index';
 import Tabs from '@material-ui/core/Tabs/index';
 import Tab from '@material-ui/core/Tab/index';
 import Typography from '@material-ui/core/Typography/index';
-
+import axios from '../ConfigAxios';
 import StudentApptAdd from './StudentApptAdd';
+import StudentApptTable from './StudentApptTable';
 
 function TabContainer(props) {
     return (
@@ -28,7 +29,28 @@ const styles = theme => ({
 });
 
 class StudentTabs extends React.Component {
+    constructor(props){
+      super(props);
+      this.deleteAppointment = this.deleteAppointment.bind(this);
 
+    }
+
+    componentDidMount(){
+        //do call to get the preferences and lock time for
+    }
+
+    deleteAppointment(id){
+      alert("wsdfsfa" + id);
+      axios.post('meeting/advisor/delete/' + id).then( response => {
+       console.log(response)
+       //call state mutating function  from student to re-update the calls
+       this.props.getMeeting();
+
+       }).catch( error => {
+         console.log(error);
+       });
+
+    }
     state = {
         value: 0,
     };
@@ -58,12 +80,18 @@ class StudentTabs extends React.Component {
                                         advisor_data={this.props.advisor_data}
                                     />
                                 </TabContainer>}
-                {value === 1 && <TabContainer>{JSON.stringify(this.props.meeting_data)}</TabContainer>}
+                {value === 1 && <TabContainer>
+                                  <StudentApptTable
+                                    deleteAppointment={this.deleteAppointment}
+                                    meeting_data={this.props.meeting_data}
+                                  />
+
+                  </TabContainer>}
             </div>
         );
     }
 }
-
+//{JSON.stringify(this.props.meeting_data)}
 StudentTabs.propTypes = {
     classes: PropTypes.object.isRequired,
 };
