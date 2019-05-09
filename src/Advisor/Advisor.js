@@ -32,6 +32,7 @@ class Advisor extends Component{
 
     updateMeetingData() {
         axios.get('meeting/advisor/' + this.props.user_data.login_id).then(response => {
+            console.log("Updating the meeting data: ", response.data);
             this.setState({
                 meeting_data: response.data,
             })

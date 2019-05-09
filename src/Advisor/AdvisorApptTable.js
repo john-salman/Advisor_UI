@@ -37,6 +37,9 @@ const styles = theme => ({
             backgroundColor: theme.palette.background.default,
         },
     },
+    rowDeclined: {
+        backgroundColor : '#ff6666',
+    },
 });
 
 let id = 0;
@@ -53,7 +56,6 @@ const rows = [
 
 function AdvisorApptTable(props) {
     const { classes, meeting_data, deleteAppointment, declineAppointment} = props;
-
     if (meeting_data) {
         return (
             <Paper className={classes.root}>
@@ -70,7 +72,7 @@ function AdvisorApptTable(props) {
                     </TableHead>
                     <TableBody>
                         {meeting_data.map(student => (
-                            <TableRow className={classes.row} key={student.id}>
+                            <TableRow className={student.declined.data[0] === 1 ? classes.rowDeclined : classes.row} key={student.id}>
                                 <CustomTableCell component="th" scope="row">
                                     {student.student_fName}
                                 </CustomTableCell>
