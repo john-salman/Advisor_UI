@@ -61,7 +61,6 @@ class StudentTabs extends React.Component {
         const { classes } = this.props;
         const { value } = this.state;
 
-        console.log("It made it this far at least:", this.props.advisor_data);
         return (
             <div className={classes.root}>
                 <AppBar position="static">

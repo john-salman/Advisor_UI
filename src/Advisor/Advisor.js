@@ -8,6 +8,20 @@ import AdvisorBarDialog from "./AdvisorBarDialog";
 
 // Test
 
+const fake_data = [
+    {
+        student_lName : "Ramos",
+        student_fName : "Barbara",
+        student_id: "003504589",
+    },
+    {
+        student_lName : "Smith",
+        student_fName : "John",
+        student_id: "003504895",
+    }
+
+];
+
 class Advisor extends Component{
 
     constructor(props) {
@@ -44,7 +58,6 @@ class Advisor extends Component{
 
     updateMeetingData() {
         axios.get('meeting/advisor/' + this.props.user_data.login_id).then(response => {
-            console.log("Updating the meeting data: ", response.data);
             this.setState({
                 meeting_data: response.data,
             })
@@ -70,7 +83,6 @@ class Advisor extends Component{
     }
 
     submit_add(_student_fName, _student_lName, _advisingTime, _user_id) {
-        console.log("This is the state:", this.state);
         let advisee_id = -1;
         this.state.student_data.forEach( student => {
             if (student.student_fName === _student_fName && student.student_lName === _student_lName) {
@@ -112,7 +124,7 @@ class Advisor extends Component{
               dateSelect={this.dateSelect}
               user_id={this.props.user_data.login_id}
               selectedDate={this.state.selectedDate}
-              student_data={this.state.student_data}
+              student_data={this.state.student_data ? this.state.student_data : fake_data}
               meeting_data={this.state.meeting_data}
               updateMeetingData={this.updateMeetingData}
           />

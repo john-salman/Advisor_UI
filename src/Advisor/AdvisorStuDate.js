@@ -12,7 +12,6 @@ class AdvisorStuDate extends React.Component{
 
     onChangeDate = event => {
        let date = new Date(event);
-        console.log('Date: ', date);
         this.setState({date});
         this.props.dateSelect(date);
     };

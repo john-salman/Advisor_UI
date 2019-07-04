@@ -18,6 +18,30 @@ const CustomTableCell = withStyles(theme => ({
     },
 }))(TableCell);
 
+const fake_data = [
+    {
+        advisor_id : "003456791",
+        student_id : "003504589",
+        advisingTime : "2019-07-05T09:00:00.000Z",
+        student_fName : "Barbara",
+        student_lName : "Ramos"
+    },
+    {
+        advisor_id : "003456791",
+        student_id : "003504589",
+        advisingTime : "2019-07-05T15:00:00.000Z",
+        student_fName : "John",
+        student_lName : "Smith"
+    },
+    {
+        advisor_id : "003456791",
+        student_id : "003504589",
+        advisingTime : "2019-07-06T11:00:00.000Z",
+        student_fName : "Barbara",
+        student_lName : "Ramos"
+    },
+];
+
 const styles = theme => ({
     root: {
         width: '100%',

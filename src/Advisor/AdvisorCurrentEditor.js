@@ -30,6 +30,42 @@ const styles = theme => ({
     },
 });
 
+const fake_data = [
+    {
+        advisor_id : "003456791",
+        advisee_id : "003504589",
+        advisingTime : "2019-07-05T09:00:00.000Z",
+        student_fName : "Barbara",
+        student_lName : "Ramos",
+        declined: {
+            "type": "Buffer",
+            "data": [
+                1
+            ]
+        },
+    },
+    {
+        advisor_id : "003456791",
+        advisee_id : "003504589",
+        advisingTime : "2019-07-05T15:00:00.000Z",
+        student_fName : "John",
+        student_lName : "Smith",
+        declined: {
+            "type": "Buffer",
+            "data": [
+                1
+            ]
+        },
+    },
+    {
+        advisor_id : "003456791",
+        advisee_id : "003504589",
+        advisingTime : "2019-07-06T11:00:00.000Z",
+        student_fName : "Bob",
+        student_lName : "Robert",
+    },
+];
+
 
 class AdvisorCurrentEditor extends React.Component {
     state = {
@@ -37,7 +73,6 @@ class AdvisorCurrentEditor extends React.Component {
     };
 
     handleChange = event => {
-        console.log("TextArea:",event.target.value, event.target.value.length);
         this.setState({
             text: event.target.value,
         });
@@ -53,22 +88,25 @@ class AdvisorCurrentEditor extends React.Component {
 
 
     render() {
-        const { classes, meeting_data } = this.props;
+        const { classes } = this.props;
         let right_now = new Date();
+        let meeting_data = this.props.meeting_data ? this.props.meeting_data : fake_data;
         let current_advisee = "";
         let current_appt_id = "";
         let end_appt = "";
         let current_time = "";
         meeting_data.forEach(current => {
             const d = new Date(current.advisingTime);
-            end_appt = new Date(moment(d, 'YYYY-MM-DD H:mm:ss').add(30,'m').format('YYYY-MM-DD H:mm:ss'));
-            let start_appt =new Date(moment(d, 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss'));
+            end_appt = new Date(moment(d, 'YYYY-MM-DD H:mm:ss').add(30, 'm').format('YYYY-MM-DD H:mm:ss'));
+            let start_appt = new Date(moment(d, 'YYYY-MM-DD H:mm:ss').format('YYYY-MM-DD H:mm:ss'));
             if (start_appt < right_now && right_now < end_appt) {
                 current_advisee = current.student_fName + " " + current.student_lName;
                 current_appt_id = current.id;
                 current_time = d;
             }
+
         });
+
 
         return (
             <div>

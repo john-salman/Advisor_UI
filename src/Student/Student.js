@@ -76,7 +76,6 @@ class Student extends Component{
 
     getMeeting(){
       axios.get('meeting/advisee/' + this.props.user_data.login_id).then(result => {
-          console.log("Meeting Data: ", result.data);
           let data = JSON.parse(JSON.stringify(result.data));
           this.setState({
               meeting_data: data,
@@ -85,7 +84,6 @@ class Student extends Component{
     }
 
     submit_add_student(  _advisor_id, _user_id, _advisingTime) {
-        console.log("This is the state:", this.state);
 
         let _advising_time_formatted = _advisingTime.getTimestamp();
         let get_pointer = this.getMeeting();
