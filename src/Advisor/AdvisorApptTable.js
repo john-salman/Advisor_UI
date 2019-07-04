@@ -54,8 +54,52 @@ const rows = [
     createData('Platypus', 'Perry', 324241234),
 ];
 
+const fake_data = [
+    {
+        advisor_id : "003456791",
+        id : "003504589",
+        advisingTime : "2019-07-05T09:00:00.000Z",
+        student_fName : "Barbara",
+        student_lName : "Ramos",
+        declined: {
+            "type": "Buffer",
+            "data": [
+                1
+            ]
+        },
+    },
+    {
+        advisor_id : "003456791",
+        id : "003504589",
+        advisingTime : "2019-07-05T15:00:00.000Z",
+        student_fName : "John",
+        student_lName : "Smith",
+        declined: {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        },
+    },
+    {
+        advisor_id : "003456791",
+        id : "003504589",
+        advisingTime : "2019-07-06T11:00:00.000Z",
+        student_fName : "Bob",
+        student_lName : "Robert",
+        declined: {
+            "type": "Buffer",
+            "data": [
+                0
+            ]
+        },
+    },
+];
+
+
 function AdvisorApptTable(props) {
-    const { classes, meeting_data, deleteAppointment, declineAppointment} = props;
+    const { classes, deleteAppointment, declineAppointment} = props;
+    let meeting_data = props.meeting_data ? props.meeting_data : fake_data;
     if (meeting_data) {
         return (
             <Paper className={classes.root}>

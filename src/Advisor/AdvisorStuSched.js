@@ -23,8 +23,31 @@ const schedStyle = {
     overflow: 'hidden',
 };
 
+const fake_data = [
+    {
+        advisor_id : "003456791",
+        advisee_id : "003504589",
+        advisingTime : "2019-07-05T02:00:00.000Z",
+        student_fName : "Barbara",
+        student_lName : "Ramos"
+    },
+    {
+        advisor_id : "003456791",
+        advisee_id : "003504589",
+        advisingTime : "2019-07-05T15:00:00.000Z",
+        student_fName : "John",
+        student_lName : "Smith"
+    },
+    {
+        advisor_id : "003456791",
+        advisee_id : "003504589",
+        advisingTime : "2019-07-06T11:00:00.000Z",
+        student_fName : "Barbara",
+        student_lName : "Ramos"
+    },
+];
+
 function format_data(data){
-    console.log("Preprocessing:", data);
     let formatted_data = data.map( advisee => {
         const d = new Date(advisee.advisingTime);
 
@@ -74,14 +97,11 @@ function AdvisorStuSched(props) {
     "student_lName": "Ramos"
 },
 */
-/*
 
-*/
     const {meeting_data, selectedDate} = props;
 
-    console.log("It should be here: ", meeting_data);
-    let data = meeting_data ? format_data(meeting_data) : [];//this.format_data(this.props.meeting_data);
-    console.log("Data now exists: ", data);
+    let data = meeting_data ? format_data(meeting_data) : [];
+
     return (
         <div style={{maxHeight: '80 vh'}}>
         <MuiThemeProvider theme={theme}>

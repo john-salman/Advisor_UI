@@ -62,17 +62,20 @@ class SignIn extends React.Component {
         this.setState({ LogIn: event.target.value })
     };
 
-    onSubmit() {
-        console.log("WERE TRYING");
+    onSubmit() {/*
         axios.get('login/' + this.state.LogIn).then(res => {
-            console.log("HERE:", JSON.stringify(res.data.user));
             let user = res.data.user;
             if (user) {
                 this.props.submit_SignIn(user);
-            } else {
-                alert("Login Id not found");
             }
-        });
+        }).catch(error => { */
+        console.log("We're here")
+            if (this.state.LogIn === "003456791") {
+                this.props.submit_SignIn({user_fName: "Daniel", user_lName: "Stanley", login_id: "003456791", role: "advisor"})
+            } else {
+                alert("Try id: 003456791")
+            }
+       /* );*/
 
     }
 

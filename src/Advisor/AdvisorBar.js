@@ -72,21 +72,21 @@ class AdvisorBar extends React.Component {
         return (
             <div className={classes.root}>
                 <AppBar position="static">
-                    <Toolbar>
-                        <IconButton onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
-                            <MenuIcon/>
-                            <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)} >
-                                <div
-                                    tabIndex={0}
-                                    role="button"
-                                    onClick={this.toggleDrawer('left', false)}
-                                    onKeyDown={this.toggleDrawer('left', false)}
-                                    onMouseLeave={this.toggleDrawer('left', false)}
-                                >
-                                    {sideList}
-                                </div>
-                            </Drawer>
-                        </IconButton>
+                    <Toolbar>{
+                        /* <IconButton onClick={this.toggleDrawer('left', true)} className={classes.menuButton} color="inherit" aria-label="Menu">
+                       <MenuIcon/>
+                          <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)} >
+                              <div
+                                  tabIndex={0}
+                                  role="button"
+                                  onClick={this.toggleDrawer('left', false)}
+                                  onKeyDown={this.toggleDrawer('left', false)}
+                                  onMouseLeave={this.toggleDrawer('left', false)}
+                              >
+                                  {sideList}
+                              </div>
+                          </Drawer>
+                        </IconButton>*/}
                         <Typography variant="h6" color="inherit" className={classes.grow}>
                             {this.props.fName + " " + this.props.lName}
                         </Typography>
